@@ -323,7 +323,7 @@ stock pTD_Font(playerid, PlayerText:text, font)
     return 1;
 }
 
-pTD_SetProportional(playerid, PlayerText:text, set)
+stock pTD_SetProportional(playerid, PlayerText:text, set)
 {
     new id = _:text;
 	if (!Iter_Contains(pTDs[playerid], id)) return 0;
@@ -642,9 +642,31 @@ public OnGameModeInit()
     forward pTD_OnGameModeInit();
 #endif
 
+public OnPlayerConnect(playerid)
+{
+    Iter_Clear(pTDs[playerid]);
+    
+    #if defined pTD_OnPlayerConnect
+        pTD_OnPlayerConnect(playerid, reason);
+    #endif
+
+    return 1;
+}
+
+#if defined _ALS_OnPlayerConnect
+    #undef OnPlayerConnect
+#else
+    #define _ALS_OnPlayerConnect
+#endif
+#define OnPlayerConnect pTD_OnPlayerConnect
+
+#if defined pTD_OnPlayerConnect
+    forward pTD_OnPlayerConnect(playerid);
+#endif
+
 public OnPlayerDisconnect(playerid, reason)
 {
-    for (new i; i < LIMIT_OF_PLAYER_TEXT_DRAWS; i++) pTD_Destroy(playerid, PlayerText:i);
+    Iter_Clear(pTDs[playerid]);
         
     #if defined pTD_OnPlayerDisconnect
         pTD_OnPlayerDisconnect(playerid, reason);
