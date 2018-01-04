@@ -1,3 +1,12 @@
+#if defined _inc_PlayerTextDrawStreamer
+	#undef _inc_PlayerTextDrawStreamer
+#endif
+
+#if defined _PlayerTDStreamer_included
+	#endinput
+#endif
+#define _PlayerTDStreamer_included
+
 #include <a_samp>
 #include <foreach>
 
