@@ -10,13 +10,14 @@
 #include <a_samp>
 #include <foreach>
 
-#if !defined LIMIT_OF_PLAYER_TEXT_DRAWS
-	#define LIMIT_OF_PLAYER_TEXT_DRAWS 512
+#if !defined MAX_PLAYER_TEXTDRAWS
+	#define MAX_PLAYER_TEXTDRAWS 512
 #endif
 
-#if LIMIT_OF_PLAYER_TEXT_DRAWS < 1
-	#error u stupid fk what r u doing
+#if !defined MAX_TEXTDRAW_STRING
+	#define MAX_TEXTDRAW_STRING 1024
 #endif
+
 
 static stock _G(n, p) return (n >> (4 * p)) & 0xF;
 static stock _S(&n, p, v) { n = n & ~(0xF << (p * 4)) | (v << (p * 4)); }
@@ -59,9 +60,9 @@ enum _:ePlayerTextDrawProperties
 	epTD_PreviewVehCol_2
 };
 
-new pTextDraws_Compressed[MAX_PLAYERS][LIMIT_OF_PLAYER_TEXT_DRAWS];
-new pTextDraws[MAX_PLAYERS][LIMIT_OF_PLAYER_TEXT_DRAWS][_:ePlayerTextDrawProperties];
-new Iterator:pTDs[MAX_PLAYERS]<LIMIT_OF_PLAYER_TEXT_DRAWS>;
+new pTextDraws_Compressed[MAX_PLAYERS][MAX_PLAYER_TEXTDRAWS];
+new pTextDraws[MAX_PLAYERS][MAX_PLAYER_TEXTDRAWS][_:ePlayerTextDrawProperties];
+new Iterator:pTDs[MAX_PLAYERS]<MAX_PLAYER_TEXTDRAWS>;
 
 stock PlayerText:pTD_Create(playerid, Float:x, Float:y, text[])
 {
@@ -121,7 +122,7 @@ stock pTD_Destroy(playerid, PlayerText:text)
 
 stock pTD_Show(playerid, PlayerText:text)
 {
-	static string[1024];
+	static string[MAX_TEXTDRAW_STRING];
 	string[0] = EOS;
 
     new id = _:text;
@@ -657,7 +658,7 @@ public OnPlayerConnect(playerid)
     Iter_Clear(pTDs[playerid]);
     
     #if defined pTD_OnPlayerConnect
-        pTD_OnPlayerConnect(playerid, reason);
+        pTD_OnPlayerConnect(playerid);
     #endif
 
     return 1;
