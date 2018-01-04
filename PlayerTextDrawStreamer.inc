@@ -2,7 +2,7 @@
 #include <foreach>
 
 #if !defined LIMIT_OF_PLAYER_TEXT_DRAWS
-	#define LIMIT_OF_PLAYER_TEXT_DRAWS 500
+	#define LIMIT_OF_PLAYER_TEXT_DRAWS 512
 #endif
 
 #if LIMIT_OF_PLAYER_TEXT_DRAWS < 1
@@ -120,9 +120,8 @@ stock pTD_Show(playerid, PlayerText:text)
 
     if (pTextDraws[playerid][id][epTD_SAMP_ID] == PlayerText:INVALID_TEXT_DRAW)
 	{
-	    new name[20];
-	    format(name, sizeof(name), "pTD_s_%i", id);
-		GetPVarString(playerid, name, string, sizeof(string));
+	    format(string, sizeof(string), "pTD_s_%i", id);
+		GetPVarString(playerid, string, string, sizeof(string));
 
         pTextDraws[playerid][id][epTD_SAMP_ID] = CreatePlayerTextDraw(playerid, pTextDraws[playerid][id][epTD_Position_X], pTextDraws[playerid][id][epTD_Position_Y], string);
     }
@@ -553,19 +552,21 @@ stock pTD_GetPreviewVehCol(playerid, PlayerText:text, &color1, &color2)
     return 1;
 }
 
-stock pTD_SetPos(playerid, PlayerText:text, Float:x, Float:y)
-{
-	new id = _:text;
-	if (!Iter_Contains(pTDs[playerid], id)) return 0;
+#if defined _YSF_included
+	stock pTD_SetPos(playerid, PlayerText:text, Float:x, Float:y)
+	{
+		new id = _:text;
+		if (!Iter_Contains(pTDs[playerid], id)) return 0;
 
-    pTextDraws[playerid][id][epTD_Position_X] = x;
-    pTextDraws[playerid][id][epTD_Position_Y] = y;
+	    pTextDraws[playerid][id][epTD_Position_X] = x;
+	    pTextDraws[playerid][id][epTD_Position_Y] = y;
 
-    if (pTextDraws[playerid][id][epTD_SAMP_ID] != PlayerText:INVALID_TEXT_DRAW)
-		PlayerTextDrawSetPos(playerid, PlayerText:pTextDraws[playerid][id][epTD_SAMP_ID], x, y);
+	    if (pTextDraws[playerid][id][epTD_SAMP_ID] != PlayerText:INVALID_TEXT_DRAW)
+			PlayerTextDrawSetPos(playerid, PlayerText:pTextDraws[playerid][id][epTD_SAMP_ID], x, y);
 
-    return 1;
-}
+	    return 1;
+	}
+#endif
 
 stock pTD_GetPos(playerid, PlayerText:text, &Float:x, &Float:y)
 {
@@ -959,9 +960,11 @@ public OnPlayerDisconnect(playerid, reason)
 #endif
 #define PlayerTextDrawGetPos pTD_GetPos
 
-#if defined _ALS_PlayerTextDrawSetPos
-	#undef PlayerTextDrawSetPos
-#else
-	#define _ALS_PlayerTextDrawSetPos
+#if defined _YSF_included
+	#if defined _ALS_PlayerTextDrawSetPos
+		#undef PlayerTextDrawSetPos
+	#else
+		#define _ALS_PlayerTextDrawSetPos
+	#endif
+	#define PlayerTextDrawSetPos pTD_SetPos
 #endif
-#define PlayerTextDrawSetPos pTD_SetPos
