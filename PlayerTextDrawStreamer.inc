@@ -66,43 +66,43 @@ new Iterator:pTDs[MAX_PLAYERS]<MAX_PLAYER_TEXTDRAWS>;
 
 stock PlayerText:pTD_Create(playerid, Float:x, Float:y, text[])
 {
-    new id = Iter_Free(pTDs[playerid]);
-    if (id == -1) return PlayerText:INVALID_TEXT_DRAW;
-    
-    Iter_Add(pTDs[playerid], id);
-    
-    pTextDraws[playerid][id][epTD_SAMP_ID] = PlayerText:INVALID_TEXT_DRAW;
+	new id = Iter_Free(pTDs[playerid]);
+	if (id == -1) return PlayerText:INVALID_TEXT_DRAW;
+	
+	Iter_Add(pTDs[playerid], id);
+	
+	pTextDraws[playerid][id][epTD_SAMP_ID] = PlayerText:INVALID_TEXT_DRAW;
 
-    _S(pTextDraws_Compressed[playerid][id], epTD_UseBox, M_COMPRESSED_VAL);
-    _S(pTextDraws_Compressed[playerid][id], epTD_Shadow, M_COMPRESSED_VAL);
-    _S(pTextDraws_Compressed[playerid][id], epTD_Outline, M_COMPRESSED_VAL);
-    _S(pTextDraws_Compressed[playerid][id], epTD_Font, M_COMPRESSED_VAL);
-    _S(pTextDraws_Compressed[playerid][id], epTD_Proportional, M_COMPRESSED_VAL);
-    _S(pTextDraws_Compressed[playerid][id], epTD_Selectable, M_COMPRESSED_VAL);
-    _S(pTextDraws_Compressed[playerid][id], epTD_Alignment, M_COMPRESSED_VAL);
-    
-    pTextDraws[playerid][id][epTD_Position_X] = x;
-    pTextDraws[playerid][id][epTD_Position_Y] = y;
-    pTextDraws[playerid][id][epTD_LetterSize_X] = M_VAL;
-    pTextDraws[playerid][id][epTD_LetterSize_Y] = M_VAL;
-    pTextDraws[playerid][id][epTD_TextSize_X] = M_VAL;
-    pTextDraws[playerid][id][epTD_TextSize_Y] = M_VAL;
-    pTextDraws[playerid][id][epTD_Color] = M_VAL;
-    pTextDraws[playerid][id][epTD_BoxColor] = M_VAL;
-    pTextDraws[playerid][id][epTD_BackgroundColor] = M_VAL;
-    pTextDraws[playerid][id][epTD_PreviewModel] = M_VAL;
-    pTextDraws[playerid][id][epTD_PreviewRot_X] = M_VAL;
-    pTextDraws[playerid][id][epTD_PreviewRot_Y] = M_VAL;
-    pTextDraws[playerid][id][epTD_PreviewRot_Z] = M_VAL;
-    pTextDraws[playerid][id][epTD_Preview_Zoom] = 1.0;
-    pTextDraws[playerid][id][epTD_PreviewVehCol_1] = M_VAL;
-    pTextDraws[playerid][id][epTD_PreviewVehCol_2] = M_VAL;
-    
-    new name[20];
-    format(name, sizeof(name), "pTD_s_%i", id);
+	_S(pTextDraws_Compressed[playerid][id], epTD_UseBox, M_COMPRESSED_VAL);
+	_S(pTextDraws_Compressed[playerid][id], epTD_Shadow, M_COMPRESSED_VAL);
+	_S(pTextDraws_Compressed[playerid][id], epTD_Outline, M_COMPRESSED_VAL);
+	_S(pTextDraws_Compressed[playerid][id], epTD_Font, M_COMPRESSED_VAL);
+	_S(pTextDraws_Compressed[playerid][id], epTD_Proportional, M_COMPRESSED_VAL);
+	_S(pTextDraws_Compressed[playerid][id], epTD_Selectable, M_COMPRESSED_VAL);
+	_S(pTextDraws_Compressed[playerid][id], epTD_Alignment, M_COMPRESSED_VAL);
+	
+	pTextDraws[playerid][id][epTD_Position_X] = x;
+	pTextDraws[playerid][id][epTD_Position_Y] = y;
+	pTextDraws[playerid][id][epTD_LetterSize_X] = M_VAL;
+	pTextDraws[playerid][id][epTD_LetterSize_Y] = M_VAL;
+	pTextDraws[playerid][id][epTD_TextSize_X] = M_VAL;
+	pTextDraws[playerid][id][epTD_TextSize_Y] = M_VAL;
+	pTextDraws[playerid][id][epTD_Color] = M_VAL;
+	pTextDraws[playerid][id][epTD_BoxColor] = M_VAL;
+	pTextDraws[playerid][id][epTD_BackgroundColor] = M_VAL;
+	pTextDraws[playerid][id][epTD_PreviewModel] = M_VAL;
+	pTextDraws[playerid][id][epTD_PreviewRot_X] = M_VAL;
+	pTextDraws[playerid][id][epTD_PreviewRot_Y] = M_VAL;
+	pTextDraws[playerid][id][epTD_PreviewRot_Z] = M_VAL;
+	pTextDraws[playerid][id][epTD_Preview_Zoom] = 1.0;
+	pTextDraws[playerid][id][epTD_PreviewVehCol_1] = M_VAL;
+	pTextDraws[playerid][id][epTD_PreviewVehCol_2] = M_VAL;
+	
+	new name[20];
+	format(name, sizeof(name), "pTD_s_%i", id);
 	SetPVarString(playerid, name, text);
 	
-    return PlayerText:id;
+	return PlayerText:id;
 }
 
 stock pTD_Destroy(playerid, PlayerText:text)
@@ -110,12 +110,12 @@ stock pTD_Destroy(playerid, PlayerText:text)
 	new id = _:text;
 	if (!Iter_Contains(pTDs[playerid], id)) return 0;
 
-    Iter_Remove(pTDs[playerid], id);
+	Iter_Remove(pTDs[playerid], id);
 
-    if (pTextDraws[playerid][id][epTD_SAMP_ID] != PlayerText:INVALID_TEXT_DRAW)
+	if (pTextDraws[playerid][id][epTD_SAMP_ID] != PlayerText:INVALID_TEXT_DRAW)
 		PlayerTextDrawDestroy(playerid, PlayerText:pTextDraws[playerid][id][epTD_SAMP_ID]);
-    
-    return 1;
+	
+	return 1;
 }
 
 stock pTD_Show(playerid, PlayerText:text)
@@ -123,70 +123,70 @@ stock pTD_Show(playerid, PlayerText:text)
 	static string[MAX_TEXTDRAW_STRING];
 	string[0] = EOS;
 
-    new id = _:text;
+	new id = _:text;
 	if (!Iter_Contains(pTDs[playerid], id)) return 0;
 
-    if (pTextDraws[playerid][id][epTD_SAMP_ID] == PlayerText:INVALID_TEXT_DRAW)
+	if (pTextDraws[playerid][id][epTD_SAMP_ID] == PlayerText:INVALID_TEXT_DRAW)
 	{
-	    format(string, sizeof(string), "pTD_s_%i", id);
+		format(string, sizeof(string), "pTD_s_%i", id);
 		GetPVarString(playerid, string, string, sizeof(string));
 
-        pTextDraws[playerid][id][epTD_SAMP_ID] = CreatePlayerTextDraw(playerid, pTextDraws[playerid][id][epTD_Position_X], pTextDraws[playerid][id][epTD_Position_Y], string);
-    }
-    
-    if (pTextDraws[playerid][id][epTD_LetterSize_X] != M_VAL)
+		pTextDraws[playerid][id][epTD_SAMP_ID] = CreatePlayerTextDraw(playerid, pTextDraws[playerid][id][epTD_Position_X], pTextDraws[playerid][id][epTD_Position_Y], string);
+	}
+	
+	if (pTextDraws[playerid][id][epTD_LetterSize_X] != M_VAL)
 		PlayerTextDrawLetterSize(playerid, pTextDraws[playerid][id][epTD_SAMP_ID], pTextDraws[playerid][id][epTD_LetterSize_X], pTextDraws[playerid][id][epTD_LetterSize_Y]);
-    
-    if (pTextDraws[playerid][id][epTD_TextSize_X] != M_VAL)
+	
+	if (pTextDraws[playerid][id][epTD_TextSize_X] != M_VAL)
 		PlayerTextDrawTextSize(playerid, pTextDraws[playerid][id][epTD_SAMP_ID], pTextDraws[playerid][id][epTD_TextSize_X], pTextDraws[playerid][id][epTD_TextSize_Y]);
-    
-    if (_G(pTextDraws_Compressed[playerid][id], epTD_Alignment) != M_COMPRESSED_VAL)
+	
+	if (_G(pTextDraws_Compressed[playerid][id], epTD_Alignment) != M_COMPRESSED_VAL)
 		PlayerTextDrawAlignment(playerid, pTextDraws[playerid][id][epTD_SAMP_ID], _G(pTextDraws_Compressed[playerid][id], epTD_Alignment));
 		
-    if (pTextDraws[playerid][id][epTD_Color] != M_VAL)
+	if (pTextDraws[playerid][id][epTD_Color] != M_VAL)
 		PlayerTextDrawColor(playerid, pTextDraws[playerid][id][epTD_SAMP_ID], pTextDraws[playerid][id][epTD_Color]);
-    
-    if (_G(pTextDraws_Compressed[playerid][id], epTD_UseBox) != M_COMPRESSED_VAL)
+	
+	if (_G(pTextDraws_Compressed[playerid][id], epTD_UseBox) != M_COMPRESSED_VAL)
 		PlayerTextDrawUseBox(playerid, pTextDraws[playerid][id][epTD_SAMP_ID], _G(pTextDraws_Compressed[playerid][id], epTD_UseBox));
 		
-    if (pTextDraws[playerid][id][epTD_BoxColor] != M_VAL)
+	if (pTextDraws[playerid][id][epTD_BoxColor] != M_VAL)
 		PlayerTextDrawBoxColor(playerid, pTextDraws[playerid][id][epTD_SAMP_ID], pTextDraws[playerid][id][epTD_BoxColor]);
-    
-    if (_G(pTextDraws_Compressed[playerid][id], epTD_Shadow) != M_COMPRESSED_VAL)
+	
+	if (_G(pTextDraws_Compressed[playerid][id], epTD_Shadow) != M_COMPRESSED_VAL)
 		PlayerTextDrawSetShadow(playerid, pTextDraws[playerid][id][epTD_SAMP_ID], _G(pTextDraws_Compressed[playerid][id], epTD_Shadow));
 		
-    if (_G(pTextDraws_Compressed[playerid][id], epTD_Outline) != M_COMPRESSED_VAL)
+	if (_G(pTextDraws_Compressed[playerid][id], epTD_Outline) != M_COMPRESSED_VAL)
 		PlayerTextDrawSetOutline(playerid, pTextDraws[playerid][id][epTD_SAMP_ID], _G(pTextDraws_Compressed[playerid][id], epTD_Outline));
-    
-    if (pTextDraws[playerid][id][epTD_BackgroundColor] != M_VAL)
+	
+	if (pTextDraws[playerid][id][epTD_BackgroundColor] != M_VAL)
 		PlayerTextDrawBackgroundColor(playerid, pTextDraws[playerid][id][epTD_SAMP_ID], pTextDraws[playerid][id][epTD_BackgroundColor]);
-    
-    if (_G(pTextDraws_Compressed[playerid][id], epTD_Font) != M_COMPRESSED_VAL)
+	
+	if (_G(pTextDraws_Compressed[playerid][id], epTD_Font) != M_COMPRESSED_VAL)
 		PlayerTextDrawFont(playerid, pTextDraws[playerid][id][epTD_SAMP_ID], _G(pTextDraws_Compressed[playerid][id], epTD_Font));
-    
-    if (_G(pTextDraws_Compressed[playerid][id], epTD_Proportional) != M_COMPRESSED_VAL)
+	
+	if (_G(pTextDraws_Compressed[playerid][id], epTD_Proportional) != M_COMPRESSED_VAL)
 		PlayerTextDrawSetProportional(playerid, pTextDraws[playerid][id][epTD_SAMP_ID], _G(pTextDraws_Compressed[playerid][id], epTD_Proportional));
-    
-    if (_G(pTextDraws_Compressed[playerid][id], epTD_Selectable) != M_COMPRESSED_VAL)
+	
+	if (_G(pTextDraws_Compressed[playerid][id], epTD_Selectable) != M_COMPRESSED_VAL)
 		PlayerTextDrawSetSelectable(playerid, pTextDraws[playerid][id][epTD_SAMP_ID], _G(pTextDraws_Compressed[playerid][id], epTD_Selectable));
-    
-    if (pTextDraws[playerid][id][epTD_PreviewModel] != M_VAL)
+	
+	if (pTextDraws[playerid][id][epTD_PreviewModel] != M_VAL)
 		PlayerTextDrawSetPreviewModel(playerid, pTextDraws[playerid][id][epTD_SAMP_ID], pTextDraws[playerid][id][epTD_PreviewModel]);
-    
-    if (pTextDraws[playerid][id][epTD_PreviewRot_X] != M_VAL)
+	
+	if (pTextDraws[playerid][id][epTD_PreviewRot_X] != M_VAL)
 		PlayerTextDrawSetPreviewRot(playerid, pTextDraws[playerid][id][epTD_SAMP_ID], pTextDraws[playerid][id][epTD_PreviewRot_X], pTextDraws[playerid][id][epTD_PreviewRot_Y], pTextDraws[playerid][id][epTD_PreviewRot_Z], pTextDraws[playerid][id][epTD_Preview_Zoom]);
-    
-    if (pTextDraws[playerid][id][epTD_PreviewVehCol_1] != M_VAL)
+	
+	if (pTextDraws[playerid][id][epTD_PreviewVehCol_1] != M_VAL)
 		PlayerTextDrawSetPreviewVehCol(playerid, pTextDraws[playerid][id][epTD_SAMP_ID], pTextDraws[playerid][id][epTD_PreviewVehCol_1], pTextDraws[playerid][id][epTD_PreviewVehCol_2]);
-    
-    PlayerTextDrawShow(playerid, pTextDraws[playerid][id][epTD_SAMP_ID]);
-    
-    return 1;
+	
+	PlayerTextDrawShow(playerid, pTextDraws[playerid][id][epTD_SAMP_ID]);
+	
+	return 1;
 }
 
 stock pTD_Hide(playerid, PlayerText:text)
 {
-    new id = _:text;
+	new id = _:text;
 	if (!Iter_Contains(pTDs[playerid], id)) return 0;
 
 	if (pTextDraws[playerid][id][epTD_SAMP_ID] != PlayerText:INVALID_TEXT_DRAW)
@@ -200,245 +200,245 @@ stock pTD_Hide(playerid, PlayerText:text)
 
 stock pTD_LetterSize(playerid, PlayerText:text, Float:x, Float:y)
 {
-    new id = _:text;
+	new id = _:text;
 	if (!Iter_Contains(pTDs[playerid], id)) return 0;
 
-    pTextDraws[playerid][id][epTD_LetterSize_X] = x;
-    pTextDraws[playerid][id][epTD_LetterSize_Y] = y;
+	pTextDraws[playerid][id][epTD_LetterSize_X] = x;
+	pTextDraws[playerid][id][epTD_LetterSize_Y] = y;
 
-    if (pTextDraws[playerid][id][epTD_SAMP_ID] != PlayerText:INVALID_TEXT_DRAW)
+	if (pTextDraws[playerid][id][epTD_SAMP_ID] != PlayerText:INVALID_TEXT_DRAW)
 		PlayerTextDrawLetterSize(playerid, PlayerText:pTextDraws[playerid][id][epTD_SAMP_ID], x, y);
 
-    return 1;
+	return 1;
 }
 
 stock pTD_TextSize(playerid, PlayerText:text, Float:x, Float:y)
 {
-    new id = _:text;
+	new id = _:text;
 	if (!Iter_Contains(pTDs[playerid], id)) return 0;
 
-    pTextDraws[playerid][id][epTD_TextSize_X] = x;
-    pTextDraws[playerid][id][epTD_TextSize_Y] = y;
+	pTextDraws[playerid][id][epTD_TextSize_X] = x;
+	pTextDraws[playerid][id][epTD_TextSize_Y] = y;
 
-    if (pTextDraws[playerid][id][epTD_SAMP_ID] != PlayerText:INVALID_TEXT_DRAW)
+	if (pTextDraws[playerid][id][epTD_SAMP_ID] != PlayerText:INVALID_TEXT_DRAW)
 		PlayerTextDrawTextSize(playerid, PlayerText:pTextDraws[playerid][id][epTD_SAMP_ID], x, y);
 
-    return 1;
+	return 1;
 }
 
 stock pTD_Alignment(playerid, PlayerText:text, alignment)
 {
-    new id = _:text;
+	new id = _:text;
 	if (!Iter_Contains(pTDs[playerid], id)) return 0;
 
-    _S(pTextDraws_Compressed[playerid][id], epTD_Alignment, alignment);
+	_S(pTextDraws_Compressed[playerid][id], epTD_Alignment, alignment);
 
-    if (pTextDraws[playerid][id][epTD_SAMP_ID] != PlayerText:INVALID_TEXT_DRAW)
+	if (pTextDraws[playerid][id][epTD_SAMP_ID] != PlayerText:INVALID_TEXT_DRAW)
 		PlayerTextDrawAlignment(playerid, PlayerText:pTextDraws[playerid][id][epTD_SAMP_ID], alignment);
 
-    return 1;
+	return 1;
 }
 
 stock pTD_Color(playerid, PlayerText:text, color)
 {
-    new id = _:text;
+	new id = _:text;
 	if (!Iter_Contains(pTDs[playerid], id)) return 0;
 
-    pTextDraws[playerid][id][epTD_Color] = color;
+	pTextDraws[playerid][id][epTD_Color] = color;
 
-    if (pTextDraws[playerid][id][epTD_SAMP_ID] != PlayerText:INVALID_TEXT_DRAW)
+	if (pTextDraws[playerid][id][epTD_SAMP_ID] != PlayerText:INVALID_TEXT_DRAW)
 		PlayerTextDrawColor(playerid, PlayerText:pTextDraws[playerid][id][epTD_SAMP_ID], color);
 
-    return 1;
+	return 1;
 }
 
 stock pTD_UseBox(playerid, PlayerText:text, use)
 {
-    new id = _:text;
+	new id = _:text;
 	if (!Iter_Contains(pTDs[playerid], id)) return 0;
 
-    _S(pTextDraws_Compressed[playerid][id], epTD_UseBox, use);
+	_S(pTextDraws_Compressed[playerid][id], epTD_UseBox, use);
 
-    if (pTextDraws[playerid][id][epTD_SAMP_ID] != PlayerText:INVALID_TEXT_DRAW)
+	if (pTextDraws[playerid][id][epTD_SAMP_ID] != PlayerText:INVALID_TEXT_DRAW)
 		PlayerTextDrawUseBox(playerid, PlayerText:pTextDraws[playerid][id][epTD_SAMP_ID], use);
 
-    return 1;
+	return 1;
 }
 
 stock pTD_BoxColor(playerid, PlayerText:text, color)
 {
-    new id = _:text;
+	new id = _:text;
 	if (!Iter_Contains(pTDs[playerid], id)) return 0;
 
-    pTextDraws[playerid][id][epTD_BoxColor] = color;
+	pTextDraws[playerid][id][epTD_BoxColor] = color;
 
-    if (pTextDraws[playerid][id][epTD_SAMP_ID] != PlayerText:INVALID_TEXT_DRAW)
+	if (pTextDraws[playerid][id][epTD_SAMP_ID] != PlayerText:INVALID_TEXT_DRAW)
 		PlayerTextDrawBoxColor(playerid, PlayerText:pTextDraws[playerid][id][epTD_SAMP_ID], color);
 
-    return 1;
+	return 1;
 }
 
 stock pTD_SetShadow(playerid, PlayerText:text, size)
 {
-    new id = _:text;
+	new id = _:text;
 	if (!Iter_Contains(pTDs[playerid], id)) return 0;
 
-    _S(pTextDraws_Compressed[playerid][id], epTD_Shadow, size);
+	_S(pTextDraws_Compressed[playerid][id], epTD_Shadow, size);
 
-    if (pTextDraws[playerid][id][epTD_SAMP_ID] != PlayerText:INVALID_TEXT_DRAW)
+	if (pTextDraws[playerid][id][epTD_SAMP_ID] != PlayerText:INVALID_TEXT_DRAW)
 		PlayerTextDrawSetShadow(playerid, PlayerText:pTextDraws[playerid][id][epTD_SAMP_ID], size);
 
-    return 1;
+	return 1;
 }
 
 stock pTD_SetOutline(playerid, PlayerText:text, size)
 {
-    new id = _:text;
+	new id = _:text;
 	if (!Iter_Contains(pTDs[playerid], id)) return 0;
 
-    _S(pTextDraws_Compressed[playerid][id], epTD_Outline, size);
+	_S(pTextDraws_Compressed[playerid][id], epTD_Outline, size);
 
-    if (pTextDraws[playerid][id][epTD_SAMP_ID] != PlayerText:INVALID_TEXT_DRAW)
+	if (pTextDraws[playerid][id][epTD_SAMP_ID] != PlayerText:INVALID_TEXT_DRAW)
 		PlayerTextDrawSetOutline(playerid, PlayerText:pTextDraws[playerid][id][epTD_SAMP_ID], size);
 
-    return 1;
+	return 1;
 }
 
 stock pTD_BackgroundColor(playerid, PlayerText:text, color)
 {
-    new id = _:text;
+	new id = _:text;
 	if (!Iter_Contains(pTDs[playerid], id)) return 0;
 
-    pTextDraws[playerid][id][epTD_BackgroundColor] = color;
+	pTextDraws[playerid][id][epTD_BackgroundColor] = color;
 
-    if (pTextDraws[playerid][id][epTD_SAMP_ID] != PlayerText:INVALID_TEXT_DRAW)
+	if (pTextDraws[playerid][id][epTD_SAMP_ID] != PlayerText:INVALID_TEXT_DRAW)
 		PlayerTextDrawBackgroundColor(playerid, PlayerText:pTextDraws[playerid][id][epTD_SAMP_ID], color);
 
-    return 1;
+	return 1;
 }
 
 stock pTD_Font(playerid, PlayerText:text, font)
 {
-    new id = _:text;
+	new id = _:text;
 	if (!Iter_Contains(pTDs[playerid], id)) return 0;
 
-    _S(pTextDraws_Compressed[playerid][id], epTD_Font, font);
+	_S(pTextDraws_Compressed[playerid][id], epTD_Font, font);
 
-    if(pTextDraws[playerid][id][epTD_SAMP_ID] != PlayerText:INVALID_TEXT_DRAW)
+	if(pTextDraws[playerid][id][epTD_SAMP_ID] != PlayerText:INVALID_TEXT_DRAW)
 		PlayerTextDrawFont(playerid, PlayerText:pTextDraws[playerid][id][epTD_SAMP_ID], font);
 
-    return 1;
+	return 1;
 }
 
 stock pTD_SetProportional(playerid, PlayerText:text, set)
 {
-    new id = _:text;
+	new id = _:text;
 	if (!Iter_Contains(pTDs[playerid], id)) return 0;
 
-    _S(pTextDraws_Compressed[playerid][id], epTD_Proportional, set);
+	_S(pTextDraws_Compressed[playerid][id], epTD_Proportional, set);
 
-    if (pTextDraws[playerid][id][epTD_SAMP_ID] != PlayerText:INVALID_TEXT_DRAW)
+	if (pTextDraws[playerid][id][epTD_SAMP_ID] != PlayerText:INVALID_TEXT_DRAW)
 		PlayerTextDrawSetProportional(playerid, PlayerText:pTextDraws[playerid][id][epTD_SAMP_ID], set);
 
-    return 1;
+	return 1;
 }
 
 stock pTD_SetSelectable(playerid, PlayerText:text, set)
 {
-    new id = _:text;
+	new id = _:text;
 	if (!Iter_Contains(pTDs[playerid], id)) return 0;
 
-    _S(pTextDraws_Compressed[playerid][id], epTD_Selectable, set);
+	_S(pTextDraws_Compressed[playerid][id], epTD_Selectable, set);
 
-    if(pTextDraws[playerid][id][epTD_SAMP_ID] != PlayerText:INVALID_TEXT_DRAW)
+	if(pTextDraws[playerid][id][epTD_SAMP_ID] != PlayerText:INVALID_TEXT_DRAW)
 		PlayerTextDrawSetSelectable(playerid, PlayerText:pTextDraws[playerid][id][epTD_SAMP_ID], set);
 
-    return 1;
+	return 1;
 }
 
 stock pTD_SetString(playerid, PlayerText:text, string[])
 {
-    new id = _:text;
+	new id = _:text;
 	if (!Iter_Contains(pTDs[playerid], id)) return 0;
 
-    new name[20];
-    format(name, sizeof(name), "pTD_s_%i", id);
+	new name[20];
+	format(name, sizeof(name), "pTD_s_%i", id);
 	SetPVarString(playerid, name, string);
 
-    if (pTextDraws[playerid][id][epTD_SAMP_ID] != PlayerText:INVALID_TEXT_DRAW)
+	if (pTextDraws[playerid][id][epTD_SAMP_ID] != PlayerText:INVALID_TEXT_DRAW)
 		PlayerTextDrawSetString(playerid, PlayerText:pTextDraws[playerid][id][epTD_SAMP_ID], string);
 		
-    return 1;
+	return 1;
 }
 
 stock pTD_SetPreviewModel(playerid, PlayerText:text, modelindex)
 {
-    new id = _:text;
+	new id = _:text;
 	if (!Iter_Contains(pTDs[playerid], id)) return 0;
 
-    pTextDraws[playerid][id][epTD_PreviewModel] = modelindex;
-    
-    if (pTextDraws[playerid][id][epTD_SAMP_ID] != PlayerText:INVALID_TEXT_DRAW)
+	pTextDraws[playerid][id][epTD_PreviewModel] = modelindex;
+	
+	if (pTextDraws[playerid][id][epTD_SAMP_ID] != PlayerText:INVALID_TEXT_DRAW)
 		PlayerTextDrawSetPreviewModel(playerid, PlayerText:pTextDraws[playerid][id][epTD_SAMP_ID], modelindex);
 		
-    return 1;
+	return 1;
 }
 
 stock pTD_SetPreviewRot(playerid, PlayerText:text, Float:fRotX, Float:fRotY, Float:fRotZ, Float:fZoom = 1.0)
 {
-    new id = _:text;
+	new id = _:text;
 	if (!Iter_Contains(pTDs[playerid], id)) return 0;
 
-    pTextDraws[playerid][id][epTD_PreviewRot_X] = fRotX;
-    pTextDraws[playerid][id][epTD_PreviewRot_Y] = fRotY;
-    pTextDraws[playerid][id][epTD_PreviewRot_Z] = fRotZ;
-    pTextDraws[playerid][id][epTD_Preview_Zoom] = fZoom;
-    
-    if (pTextDraws[playerid][id][epTD_SAMP_ID] != PlayerText:INVALID_TEXT_DRAW)
-    	PlayerTextDrawSetPreviewRot(playerid, PlayerText:pTextDraws[playerid][id][epTD_SAMP_ID], fRotX, fRotY, fRotZ, fZoom);
-    	
-    return 1;
+	pTextDraws[playerid][id][epTD_PreviewRot_X] = fRotX;
+	pTextDraws[playerid][id][epTD_PreviewRot_Y] = fRotY;
+	pTextDraws[playerid][id][epTD_PreviewRot_Z] = fRotZ;
+	pTextDraws[playerid][id][epTD_Preview_Zoom] = fZoom;
+	
+	if (pTextDraws[playerid][id][epTD_SAMP_ID] != PlayerText:INVALID_TEXT_DRAW)
+		PlayerTextDrawSetPreviewRot(playerid, PlayerText:pTextDraws[playerid][id][epTD_SAMP_ID], fRotX, fRotY, fRotZ, fZoom);
+		
+	return 1;
 }
 
 stock pTD_SetPreviewVehCol(playerid, PlayerText:text, color1, color2)
 {
-    new id = _:text;
+	new id = _:text;
 	if (!Iter_Contains(pTDs[playerid], id)) return 0;
 
-    pTextDraws[playerid][id][epTD_PreviewVehCol_1] = color1;
-    pTextDraws[playerid][id][epTD_PreviewVehCol_2] = color2;
-    
-    if (pTextDraws[playerid][id][epTD_SAMP_ID] != PlayerText:INVALID_TEXT_DRAW)
+	pTextDraws[playerid][id][epTD_PreviewVehCol_1] = color1;
+	pTextDraws[playerid][id][epTD_PreviewVehCol_2] = color2;
+	
+	if (pTextDraws[playerid][id][epTD_SAMP_ID] != PlayerText:INVALID_TEXT_DRAW)
 		PlayerTextDrawSetPreviewVehCol(playerid, PlayerText:pTextDraws[playerid][id][epTD_SAMP_ID], color1, color2);
 		
-    return 1;
+	return 1;
 }
 
 stock pTD_GetLetterSize(playerid, PlayerText:text, &Float:x, &Float:y)
 {
-    new id = _:text;
+	new id = _:text;
 	if (!Iter_Contains(pTDs[playerid], id)) return 0;
 
-    x = pTextDraws[playerid][id][epTD_LetterSize_X]
-    y = pTextDraws[playerid][id][epTD_LetterSize_Y];
+	x = pTextDraws[playerid][id][epTD_LetterSize_X]
+	y = pTextDraws[playerid][id][epTD_LetterSize_Y];
 
-    return 1;
+	return 1;
 }
 
 stock pTD_GetTextSize(playerid, PlayerText:text, &Float:x, &Float:y)
 {
-    new id = _:text;
+	new id = _:text;
 	if (!Iter_Contains(pTDs[playerid], id)) return 0;
 
-    x = pTextDraws[playerid][id][epTD_TextSize_X]
-    y = pTextDraws[playerid][id][epTD_TextSize_Y];
+	x = pTextDraws[playerid][id][epTD_TextSize_X]
+	y = pTextDraws[playerid][id][epTD_TextSize_Y];
 
-    return 1;
+	return 1;
 }
 
 stock pTD_GetAlignment(playerid, PlayerText:text)
 {
-    new id = _:text;
+	new id = _:text;
 	if (!Iter_Contains(pTDs[playerid], id)) return 0;
 
 	return _G(pTextDraws_Compressed[playerid][id], epTD_Alignment);
@@ -446,118 +446,118 @@ stock pTD_GetAlignment(playerid, PlayerText:text)
 
 stock pTD_GetColor(playerid, PlayerText:text)
 {
-    new id = _:text;
+	new id = _:text;
 	if (!Iter_Contains(pTDs[playerid], id)) return 0;
 
-    return pTextDraws[playerid][id][epTD_Color];
+	return pTextDraws[playerid][id][epTD_Color];
 }
 
 stock pTD_IsBox(playerid, PlayerText:text)
 {
-    new id = _:text;
+	new id = _:text;
 	if (!Iter_Contains(pTDs[playerid], id)) return 0;
 
-    return _G(pTextDraws_Compressed[playerid][id], epTD_UseBox);
+	return _G(pTextDraws_Compressed[playerid][id], epTD_UseBox);
 }
 
 stock pTD_GetBoxColor(playerid, PlayerText:text)
 {
-    new id = _:text;
+	new id = _:text;
 	if (!Iter_Contains(pTDs[playerid], id)) return 0;
 
-    return pTextDraws[playerid][id][epTD_BoxColor];
+	return pTextDraws[playerid][id][epTD_BoxColor];
 }
 
 stock pTD_GetShadow(playerid, PlayerText:text)
 {
-    new id = _:text;
+	new id = _:text;
 	if (!Iter_Contains(pTDs[playerid], id)) return 0;
 
-    return _G(pTextDraws_Compressed[playerid][id], epTD_Shadow);
+	return _G(pTextDraws_Compressed[playerid][id], epTD_Shadow);
 }
 
 stock pTD_GetOutline(playerid, PlayerText:text)
 {
-    new id = _:text;
+	new id = _:text;
 	if (!Iter_Contains(pTDs[playerid], id)) return 0;
 
-    return _G(pTextDraws_Compressed[playerid][id], epTD_Outline);
+	return _G(pTextDraws_Compressed[playerid][id], epTD_Outline);
 }
 
 stock pTD_GetBackgroundColor(playerid, PlayerText:text)
 {
-    new id = _:text;
+	new id = _:text;
 	if (!Iter_Contains(pTDs[playerid], id)) return 0;
 
-    return pTextDraws[playerid][id][epTD_BackgroundColor];
+	return pTextDraws[playerid][id][epTD_BackgroundColor];
 }
 
 stock pTD_GetFont(playerid, PlayerText:text)
 {
-    new id = _:text;
+	new id = _:text;
 	if (!Iter_Contains(pTDs[playerid], id)) return 0;
 
-    return _G(pTextDraws_Compressed[playerid][id], epTD_Font);
+	return _G(pTextDraws_Compressed[playerid][id], epTD_Font);
 }
 
 stock pTD_IsProportional(playerid, PlayerText:text)
 {
-    new id = _:text;
+	new id = _:text;
 	if (!Iter_Contains(pTDs[playerid], id)) return 0;
 
-    return _G(pTextDraws_Compressed[playerid][id], epTD_Proportional);
+	return _G(pTextDraws_Compressed[playerid][id], epTD_Proportional);
 }
 
 stock pTD_IsSelectable(playerid, PlayerText:text)
 {
-    new id = _:text;
+	new id = _:text;
 	if (!Iter_Contains(pTDs[playerid], id)) return 0;
 
-    return _G(pTextDraws_Compressed[playerid][id], epTD_Selectable);
+	return _G(pTextDraws_Compressed[playerid][id], epTD_Selectable);
 }
 
 stock pTD_GetString(playerid, PlayerText:text, string[], len = sizeof(string))
 {
-    new id = _:text;
+	new id = _:text;
 	if (!Iter_Contains(pTDs[playerid], id)) return 0;
 
-    new name[20];
-    format(name, sizeof(name), "pTD_s_%i", id);
+	new name[20];
+	format(name, sizeof(name), "pTD_s_%i", id);
 	GetPVarString(playerid, name, string, len);
 
-    return 1;
+	return 1;
 }
 
 stock pTD_GetPreviewModel(playerid, PlayerText:text, modelindex)
 {
-    new id = _:text;
+	new id = _:text;
 	if (!Iter_Contains(pTDs[playerid], id)) return 0;
 
-    return pTextDraws[playerid][id][epTD_PreviewModel];
+	return pTextDraws[playerid][id][epTD_PreviewModel];
 }
 
 stock pTD_GetPreviewRot(playerid, PlayerText:text, &Float:fRotX, &Float:fRotY, &Float:fRotZ, &Float:fZoom)
 {
-    new id = _:text;
+	new id = _:text;
 	if (!Iter_Contains(pTDs[playerid], id)) return 0;
 
-    fRotX = pTextDraws[playerid][id][epTD_PreviewRot_X];
-    fRotY = pTextDraws[playerid][id][epTD_PreviewRot_Y];
-    fRotZ = pTextDraws[playerid][id][epTD_PreviewRot_Z];
-    fZoom = pTextDraws[playerid][id][epTD_Preview_Zoom];
+	fRotX = pTextDraws[playerid][id][epTD_PreviewRot_X];
+	fRotY = pTextDraws[playerid][id][epTD_PreviewRot_Y];
+	fRotZ = pTextDraws[playerid][id][epTD_PreviewRot_Z];
+	fZoom = pTextDraws[playerid][id][epTD_Preview_Zoom];
 
-    return 1;
+	return 1;
 }
 
 stock pTD_GetPreviewVehCol(playerid, PlayerText:text, &color1, &color2)
 {
-    new id = _:text;
+	new id = _:text;
 	if (!Iter_Contains(pTDs[playerid], id)) return 0;
 
-    color1 = pTextDraws[playerid][id][epTD_PreviewVehCol_1];
-    color2 = pTextDraws[playerid][id][epTD_PreviewVehCol_2];
+	color1 = pTextDraws[playerid][id][epTD_PreviewVehCol_1];
+	color2 = pTextDraws[playerid][id][epTD_PreviewVehCol_2];
 
-    return 1;
+	return 1;
 }
 
 stock pTD_SetPos(playerid, PlayerText:text, Float:x, Float:y)
@@ -565,40 +565,40 @@ stock pTD_SetPos(playerid, PlayerText:text, Float:x, Float:y)
 	new id = _:text;
 	if (!Iter_Contains(pTDs[playerid], id)) return 0;
 
-    pTextDraws[playerid][id][epTD_Position_X] = x;
-    pTextDraws[playerid][id][epTD_Position_Y] = y;
+	pTextDraws[playerid][id][epTD_Position_X] = x;
+	pTextDraws[playerid][id][epTD_Position_Y] = y;
 
-    #if defined _YSF_included
-	    if (pTextDraws[playerid][id][epTD_SAMP_ID] != PlayerText:INVALID_TEXT_DRAW)
+	#if defined _YSF_included
+		if (pTextDraws[playerid][id][epTD_SAMP_ID] != PlayerText:INVALID_TEXT_DRAW)
 			PlayerTextDrawSetPos(playerid, PlayerText:pTextDraws[playerid][id][epTD_SAMP_ID], x, y);
-    #endif
-    
-    return 1;
+	#endif
+	
+	return 1;
 }
 
 stock pTD_GetPos(playerid, PlayerText:text, &Float:x, &Float:y)
 {
-    new id = _:text;
+	new id = _:text;
 	if (!Iter_Contains(pTDs[playerid], id)) return 0;
 
-    x = pTextDraws[playerid][id][epTD_Position_X]
-    y = pTextDraws[playerid][id][epTD_Position_Y];
+	x = pTextDraws[playerid][id][epTD_Position_X]
+	y = pTextDraws[playerid][id][epTD_Position_Y];
 
-    return 1;
+	return 1;
 }
 
 stock pTD_IsValid(playerid, PlayerText:text)
 {
-    new id = _:text;
+	new id = _:text;
 	return Iter_Contains(pTDs[playerid], id);
 }
 
 stock pTD_IsVisible(playerid, PlayerText:text)
 {
-    new id = _:text;
+	new id = _:text;
 	if (!Iter_Contains(pTDs[playerid], id)) return 0;
 
-    return pTextDraws[playerid][id][epTD_SAMP_ID] != PlayerText:INVALID_TEXT_DRAW;
+	return pTextDraws[playerid][id][epTD_SAMP_ID] != PlayerText:INVALID_TEXT_DRAW;
 }
 
 
@@ -608,7 +608,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 	{
 		if (pTextDraws[playerid][i][epTD_SAMP_ID] == playertextid)
 		{
-		    #if defined pTD_OnPlayerClickPlayerTD
+			#if defined pTD_OnPlayerClickPlayerTD
 				pTD_OnPlayerClickPlayerTD(playerid, PlayerText:i);
 			#endif
 			
@@ -620,83 +620,83 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 }
 
 #if defined _ALS_OnPlayerClickPlayerTD
-    #undef OnPlayerClickPlayerTextDraw
+	#undef OnPlayerClickPlayerTextDraw
 #else
-    #define _ALS_OnPlayerClickPlayerTD
+	#define _ALS_OnPlayerClickPlayerTD
 #endif
 #define OnPlayerClickPlayerTextDraw pTD_OnPlayerClickPlayerTD
 
 #if defined pTD_OnPlayerClickPlayerTD
-    forward pTD_OnPlayerClickPlayerTD(playerid, PlayerText:playertextid);
+	forward pTD_OnPlayerClickPlayerTD(playerid, PlayerText:playertextid);
 #endif
 
 
 public OnGameModeInit()
 {
-    Iter_Init(pTDs);
+	Iter_Init(pTDs);
 
-    #if defined pTD_OnGameModeInit
-        pTD_OnGameModeInit();
-    #endif
+	#if defined pTD_OnGameModeInit
+		pTD_OnGameModeInit();
+	#endif
 
-    return 1;
+	return 1;
 }
 
 #if defined _ALS_OnGameModeInit
-    #undef OnGameModeInit
+	#undef OnGameModeInit
 #else
-    #define _ALS_OnGameModeInit
+	#define _ALS_OnGameModeInit
 #endif
 #define OnGameModeInit pTD_OnGameModeInit
 
 #if defined pTD_OnGameModeInit
-    forward pTD_OnGameModeInit();
+	forward pTD_OnGameModeInit();
 #endif
 
 
 public OnPlayerConnect(playerid)
 {
-    Iter_Clear(pTDs[playerid]);
-    
-    #if defined pTD_OnPlayerConnect
-        pTD_OnPlayerConnect(playerid);
-    #endif
+	Iter_Clear(pTDs[playerid]);
+	
+	#if defined pTD_OnPlayerConnect
+		pTD_OnPlayerConnect(playerid);
+	#endif
 
-    return 1;
+	return 1;
 }
 
 #if defined _ALS_OnPlayerConnect
-    #undef OnPlayerConnect
+	#undef OnPlayerConnect
 #else
-    #define _ALS_OnPlayerConnect
+	#define _ALS_OnPlayerConnect
 #endif
 #define OnPlayerConnect pTD_OnPlayerConnect
 
 #if defined pTD_OnPlayerConnect
-    forward pTD_OnPlayerConnect(playerid);
+	forward pTD_OnPlayerConnect(playerid);
 #endif
 
 
 public OnPlayerDisconnect(playerid, reason)
 {
-    Iter_Clear(pTDs[playerid]);
-        
-    #if defined pTD_OnPlayerDisconnect
-        pTD_OnPlayerDisconnect(playerid, reason);
-    #endif
-    
-    return 1;
+	Iter_Clear(pTDs[playerid]);
+		
+	#if defined pTD_OnPlayerDisconnect
+		pTD_OnPlayerDisconnect(playerid, reason);
+	#endif
+	
+	return 1;
 }
 
 #if defined _ALS_OnPlayerDisconnect
-    #undef OnPlayerDisconnect
+	#undef OnPlayerDisconnect
 #else
-    #define _ALS_OnPlayerDisconnect
+	#define _ALS_OnPlayerDisconnect
 #endif
 #define OnPlayerDisconnect pTD_OnPlayerDisconnect
 
 #if defined pTD_OnPlayerDisconnect
-    forward pTD_OnPlayerDisconnect(playerid, reason);
+	forward pTD_OnPlayerDisconnect(playerid, reason);
 #endif
 
 
