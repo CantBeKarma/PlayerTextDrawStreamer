@@ -115,8 +115,6 @@ stock pTD_Destroy(playerid, PlayerText:text)
     if (pTextDraws[playerid][id][epTD_SAMP_ID] != PlayerText:INVALID_TEXT_DRAW)
 		PlayerTextDrawDestroy(playerid, PlayerText:pTextDraws[playerid][id][epTD_SAMP_ID]);
     
-    for (new i; i < sizeof(pTextDraws[][]); i++) pTextDraws[playerid][id][i] = 0;
-    
     return 1;
 }
 
@@ -562,21 +560,21 @@ stock pTD_GetPreviewVehCol(playerid, PlayerText:text, &color1, &color2)
     return 1;
 }
 
-#if defined _YSF_included
-	stock pTD_SetPos(playerid, PlayerText:text, Float:x, Float:y)
-	{
-		new id = _:text;
-		if (!Iter_Contains(pTDs[playerid], id)) return 0;
+stock pTD_SetPos(playerid, PlayerText:text, Float:x, Float:y)
+{
+	new id = _:text;
+	if (!Iter_Contains(pTDs[playerid], id)) return 0;
 
-	    pTextDraws[playerid][id][epTD_Position_X] = x;
-	    pTextDraws[playerid][id][epTD_Position_Y] = y;
+    pTextDraws[playerid][id][epTD_Position_X] = x;
+    pTextDraws[playerid][id][epTD_Position_Y] = y;
 
+    #if defined _YSF_included
 	    if (pTextDraws[playerid][id][epTD_SAMP_ID] != PlayerText:INVALID_TEXT_DRAW)
 			PlayerTextDrawSetPos(playerid, PlayerText:pTextDraws[playerid][id][epTD_SAMP_ID], x, y);
-
-	    return 1;
-	}
-#endif
+    #endif
+    
+    return 1;
+}
 
 stock pTD_GetPos(playerid, PlayerText:text, &Float:x, &Float:y)
 {
@@ -602,6 +600,7 @@ stock pTD_IsVisible(playerid, PlayerText:text)
 
     return pTextDraws[playerid][id][epTD_SAMP_ID] != PlayerText:INVALID_TEXT_DRAW;
 }
+
 
 public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 {
@@ -631,6 +630,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
     forward pTD_OnPlayerClickPlayerTD(playerid, PlayerText:playertextid);
 #endif
 
+
 public OnGameModeInit()
 {
     Iter_Init(pTDs);
@@ -652,6 +652,7 @@ public OnGameModeInit()
 #if defined pTD_OnGameModeInit
     forward pTD_OnGameModeInit();
 #endif
+
 
 public OnPlayerConnect(playerid)
 {
@@ -675,6 +676,7 @@ public OnPlayerConnect(playerid)
     forward pTD_OnPlayerConnect(playerid);
 #endif
 
+
 public OnPlayerDisconnect(playerid, reason)
 {
     Iter_Clear(pTDs[playerid]);
@@ -696,6 +698,7 @@ public OnPlayerDisconnect(playerid, reason)
 #if defined pTD_OnPlayerDisconnect
     forward pTD_OnPlayerDisconnect(playerid, reason);
 #endif
+
 
 #if defined _ALS_CreatePlayerTextDraw
 	#undef CreatePlayerTextDraw
@@ -970,11 +973,9 @@ public OnPlayerDisconnect(playerid, reason)
 #endif
 #define PlayerTextDrawGetPos pTD_GetPos
 
-#if defined _YSF_included
-	#if defined _ALS_PlayerTextDrawSetPos
-		#undef PlayerTextDrawSetPos
-	#else
-		#define _ALS_PlayerTextDrawSetPos
-	#endif
-	#define PlayerTextDrawSetPos pTD_SetPos
+#if defined _ALS_PlayerTextDrawSetPos
+	#undef PlayerTextDrawSetPos
+#else
+	#define _ALS_PlayerTextDrawSetPos
 #endif
+#define PlayerTextDrawSetPos pTD_SetPos
